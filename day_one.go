@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"strconv"
 	"unicode"
 )
 
@@ -16,7 +15,7 @@ func dayOne() {
 		sum += getDigits(fileScanner.Text(), digitNumbers)
 	}
 
-	fmt.Println("" + strconv.Itoa(sum))
+	fmt.Println("" + intToStr(sum))
 }
 
 func getDigits(line string, digitNumbers map[string]int) int {
@@ -28,11 +27,11 @@ func getDigits(line string, digitNumbers map[string]int) int {
 
 		if unicode.IsDigit(ch) {
 			num = int(ch - '0')
-		} else if (len(line)-index) >= 3 && mapContainesKey(digitNumbers, line[index:index+3]) {
+		} else if (len(line)-index) >= 3 && mapContainsKey(digitNumbers, line[index:index+3]) {
 			num = digitNumbers[line[index:index+3]]
-		} else if (len(line)-index) >= 4 && mapContainesKey(digitNumbers, line[index:index+4]) {
+		} else if (len(line)-index) >= 4 && mapContainsKey(digitNumbers, line[index:index+4]) {
 			num = digitNumbers[line[index:index+4]]
-		} else if (len(line)-index) >= 5 && mapContainesKey(digitNumbers, line[index:index+5]) {
+		} else if (len(line)-index) >= 5 && mapContainsKey(digitNumbers, line[index:index+5]) {
 			num = digitNumbers[line[index:index+5]]
 		}
 

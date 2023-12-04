@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"strconv"
 	"unicode"
 )
 
@@ -16,7 +15,7 @@ func dayThree() {
 
 	symbolMap := map[string]bool{}
 	gears := map[string][]int{}
-	numbers := []numberPosition{}
+	var numbers []numberPosition
 
 	y := 0
 
@@ -34,7 +33,7 @@ func dayThree() {
 				}
 
 				if ch != '.' {
-					key := strconv.Itoa(y) + ":" + strconv.Itoa(x)
+					key := intToStr(y) + ":" + intToStr(x)
 					symbolMap[key] = true
 
 					if ch == '*' {
@@ -64,9 +63,9 @@ func dayThreePartOneSum(numbers []numberPosition, symbolMap map[string]bool) {
 mainLoop:
 	for _, n := range numbers {
 		for x := n.startX - 1; x <= n.endX+1; x++ {
-			if mapContainesKey(symbolMap, strconv.Itoa(n.y)+":"+strconv.Itoa(x)) ||
-				mapContainesKey(symbolMap, strconv.Itoa(n.y-1)+":"+strconv.Itoa(x)) ||
-				mapContainesKey(symbolMap, strconv.Itoa(n.y+1)+":"+strconv.Itoa(x)) {
+			if mapContainsKey(symbolMap, intToStr(n.y)+":"+intToStr(x)) ||
+				mapContainsKey(symbolMap, intToStr(n.y-1)+":"+intToStr(x)) ||
+				mapContainsKey(symbolMap, intToStr(n.y+1)+":"+intToStr(x)) {
 				sum += strToInt(n.number)
 
 				continue mainLoop
@@ -74,7 +73,7 @@ mainLoop:
 		}
 	}
 
-	fmt.Println("Part One: " + strconv.Itoa(sum))
+	fmt.Println("Part One: " + intToStr(sum))
 }
 
 func dayThreePartTwoSum(numbers []numberPosition, gears map[string][]int) {
@@ -83,8 +82,8 @@ func dayThreePartTwoSum(numbers []numberPosition, gears map[string][]int) {
 	for _, n := range numbers {
 		for x := n.startX - 1; x <= n.endX+1; x++ {
 			for y := n.y - 1; y <= n.y+1; y++ {
-				key := strconv.Itoa(y) + ":" + strconv.Itoa(x)
-				if mapContainesKey(gears, key) {
+				key := intToStr(y) + ":" + intToStr(x)
+				if mapContainsKey(gears, key) {
 					gears[key] = append(gears[key], strToInt(n.number))
 				}
 			}
@@ -97,5 +96,5 @@ func dayThreePartTwoSum(numbers []numberPosition, gears map[string][]int) {
 		}
 	}
 
-	fmt.Println("Part Two: " + strconv.Itoa(sum))
+	fmt.Println("Part Two: " + intToStr(sum))
 }

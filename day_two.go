@@ -15,10 +15,10 @@ func dayTwoPartOne(fileScanner *bufio.Scanner) {
 	sum := 0
 
 	for fileScanner.Scan() {
-		idAndGems := strings.Split(fileScanner.Text(), ":")
-		gameNumber := strToInt(idAndGems[0][5:len(idAndGems[0])])
+		id, gems := destructure(strings.Split(fileScanner.Text(), ":"))
+		gameNumber := strToInt(id[5:])
 
-		sets := strings.Split(idAndGems[1], ";")
+		sets := strings.Split(gems, ";")
 
 		isPossible := true
 
@@ -48,9 +48,9 @@ func dayTwoPartTwo(fileScanner *bufio.Scanner) {
 	sum := 0
 
 	for fileScanner.Scan() {
-		idAndGems := strings.Split(fileScanner.Text(), ":")
+		_, gems := destructure(strings.Split(fileScanner.Text(), ":"))
 
-		sets := strings.Split(idAndGems[1], ";")
+		sets := strings.Split(gems, ";")
 
 		minCubes := map[string]int{}
 		for _, set := range sets {
@@ -61,7 +61,7 @@ func dayTwoPartTwo(fileScanner *bufio.Scanner) {
 				key := valueKey[1]
 				value := strToInt(valueKey[0])
 
-				if !(mapContainesKey(minCubes, key) && minCubes[key] > value) {
+				if !(mapContainsKey(minCubes, key) && minCubes[key] > value) {
 					minCubes[key] = value
 				}
 			}

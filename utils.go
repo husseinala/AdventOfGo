@@ -2,7 +2,6 @@ package main
 
 import (
 	"bufio"
-	"fmt"
 	"os"
 	"strconv"
 )
@@ -11,7 +10,7 @@ func readFile(name string) *bufio.Scanner {
 	readFile, err := os.Open("resources/" + name)
 
 	if err != nil {
-		fmt.Println(err)
+		panic(err)
 	}
 
 	fileScanner := bufio.NewScanner(readFile)
@@ -21,14 +20,30 @@ func readFile(name string) *bufio.Scanner {
 	return fileScanner
 }
 
-func mapContainesKey[K comparable, V any](testMap map[K]V, key K) bool {
+func mapContainsKey[K comparable, V any](testMap map[K]V, key K) bool {
 	_, ok := testMap[key]
 
 	return ok
 }
 
 func strToInt(str string) int {
-	val, _ := strconv.Atoi(str)
+	val, err := strconv.Atoi(str)
+
+	if err != nil {
+		panic(err)
+	}
 
 	return val
+}
+
+func intToStr(val int) string {
+	return strconv.Itoa(val)
+}
+
+func destructure[V any](list []V) (V, V) {
+	return list[0], list[1]
+}
+
+func destructure3[V any](list []V) (V, V, V) {
+	return list[0], list[1], list[2]
 }
